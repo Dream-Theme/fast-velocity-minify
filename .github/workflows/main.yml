@@ -1,0 +1,31 @@
+name: publish-plugin
+run-name: Publish
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    name: Publish plugin
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: modified
+    - name: Build
+      shell: bash
+      run: git archive --format=zip --prefix="fast-velocity-minify/" HEAD > ${{ github.workspace }}/fast-velocity-minify.zip
+    - name: Upload zip file to GitHub actions artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: fast-velocity-minify.zip
+        path: ${{ github.workspace }}/fast-velocity-minify.zip
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.ref_name }}
+        files: fast-velocity-minify.zip
+        body: Release ${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
