@@ -8,6 +8,7 @@ Author URI: http://fastvelocity.com
 Text Domain: fast-velocity-minify
 Version: 3.3.6
 License: GPL2
+Package: the7
 
 ------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or modify
@@ -33,6 +34,8 @@ if(function_exists('wp_opcache_invalidate') && stripos(__FILE__, '/fvm.php') !==
 	wp_opcache_invalidate(__FILE__, true);
 }
 
+if (!defined('FVM_PDIR')) { define('FVM_VERSION', '3.3.6');}
+
 # info, variables, paths
 if (!defined('FVM_PDIR')) { define('FVM_PDIR', __DIR__ . '/'); }  # /home/path/plugins/pluginname/
 $fvm_var_dir_path = FVM_PDIR;                               		# /home/path/plugins/pluginname/
@@ -41,7 +44,7 @@ $fvm_var_inc_dir = FVM_PDIR . 'inc' . DIRECTORY_SEPARATOR;  		# /home/path/plugi
 $fvm_var_inc_lib = FVM_PDIR . 'libs' . DIRECTORY_SEPARATOR; 		# /home/path/plugins/pluginname/libs/
 $fvm_var_basename = plugin_basename($fvm_var_file);                 # pluginname/wpr.php
 $fvm_var_url_path = plugins_url(dirname($fvm_var_basename)) . '/';  # https://example.com/wp-content/plugins/pluginname/
-$fvm_var_plugin_version = get_file_data($fvm_var_file, array('Version' => 'Version'), false)['Version'];
+$fvm_var_plugin_version = FVM_VERSION;
 
 # global functions for backend, frontend, ajax, etc
 require_once($fvm_var_inc_dir . 'common.php');
@@ -86,7 +89,7 @@ if(is_admin()) {
 	add_action('avada_clear_dynamic_css_cache', 'fvm_purge_all');
 	add_action('upgrader_process_complete', 'fvm_purge_all');
 	add_action('update_option_theme_mods_' . get_option('stylesheet'), 'fvm_purge_all');
-	
+
 }
 
 

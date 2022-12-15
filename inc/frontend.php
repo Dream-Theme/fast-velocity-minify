@@ -1092,7 +1092,7 @@ function fvm_process_page($html) {
 		if(function_exists('fvm_filter_final_html')) {
 			$html = fvm_filter_final_html($html);
 		}
-			
+		$html = apply_filters("fvm_filter_final_html", $html);
 	}
 	
 	# return html
