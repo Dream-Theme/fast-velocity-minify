@@ -34,7 +34,7 @@ if(function_exists('wp_opcache_invalidate') && stripos(__FILE__, '/fvm.php') !==
 	wp_opcache_invalidate(__FILE__, true);
 }
 
-if (!defined('FVM_PDIR')) { define('FVM_VERSION', '3.3.6');}
+if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.3.6');}
 
 # info, variables, paths
 if (!defined('FVM_PDIR')) { define('FVM_PDIR', __DIR__ . '/'); }  # /home/path/plugins/pluginname/
