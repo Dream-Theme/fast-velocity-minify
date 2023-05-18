@@ -1,30 +1,18 @@
 <?php
-/*
-Plugin Name: Fast Velocity Minify
-Plugin URI: http://fastvelocity.com
-Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
-Author: Raul Peixoto
-Author URI: http://fastvelocity.com
-Text Domain: fast-velocity-minify
-Version: 3.3.6
-License: GPL2
-Package: the7
-
-------------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+/**
+ * Plugin Name: Fast Velocity Minify
+ * Plugin URI: https://www.upwork.com/fl/raulpeixoto
+ * Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
+ * Version: 3.4.0
+ * Author: Raul Peixoto
+ * Author URI: https://www.upwork.com/fl/raulpeixoto
+ * Text Domain: fast-velocity-minify
+ * Requires at least: 5.6
+ * Requires PHP: 7.3
+ * License: GPL2 / https://wordpress.org/about/license/
+ * Package: the7
 */
+
 
 # Exit if accessed directly				
 if (!defined('ABSPATH')){ exit(); }	
@@ -34,7 +22,7 @@ if(function_exists('wp_opcache_invalidate') && stripos(__FILE__, '/fvm.php') !==
 	wp_opcache_invalidate(__FILE__, true);
 }
 
-if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.3.6');}
+if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.4.0');}
 
 # info, variables, paths
 if (!defined('FVM_PDIR')) { define('FVM_PDIR', __DIR__ . '/'); }  # /home/path/plugins/pluginname/
@@ -110,15 +98,16 @@ if(!is_admin()) {
 	# load after all plugins
 	add_action( 'plugins_loaded', 'fvm_loader' );
 	function fvm_loader() {
-		if (defined('WPCACHECONFIGPATH')) {
+		$active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+		if (in_array('wp-super-cache/wp-cache.php', $active_plugins)) {
 			add_filter( 'wpsupercache_buffer', 'fvm_process_page' );          # WP-Super-Cache
-		} else if (defined('W3TC')) {
+		} else if (in_array('w3-total-cache/w3-total-cache.php', $active_plugins)) {
 			add_filter( 'w3tc_process_content', 'fvm_process_page' );         # W3 Total Cache
-		} else if (defined('WP_ROCKET_VERSION')) {
+		} else if (in_array('wp-rocket/wp-rocket.php', $active_plugins)) {
 			add_filter( 'rocket_buffer', 'fvm_process_page' );                # WP Rocket
-		} else if (defined('LSCWP_V')) {
+		} else if (in_array('litespeed-cache/litespeed-cache.php', $active_plugins)) {
 			add_filter( 'litespeed_buffer_before', 'fvm_process_page' );      # LiteSpeed Cache
-		} else if (defined('CE_VERSION')) {
+		} else if (in_array('cache-enabler/cache-enabler.php', $active_plugins)) {
 			add_filter( 'cache_enabler_page_contents_before_store', 'fvm_process_page' );   # Cache Enabler
 		} else {
 			if (!defined('FVM_HOOK_INTO')) { define('FVM_HOOK_INTO', 'setup_theme'); }
