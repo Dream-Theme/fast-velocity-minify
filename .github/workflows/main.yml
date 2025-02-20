@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: modified
     - name: Build
@@ -23,7 +23,7 @@ jobs:
         name: fast-velocity-minify.zip
         path: ${{ github.workspace }}/fast-velocity-minify.zip
     - name: Create GitHub release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ github.ref_name }}
         files: fast-velocity-minify.zip
