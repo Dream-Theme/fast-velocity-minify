@@ -17,7 +17,7 @@ jobs:
       shell: bash
       run: git archive --format=zip --prefix="fast-velocity-minify/" HEAD > ${{ github.workspace }}/fast-velocity-minify.zip
     - name: Upload zip file to GitHub actions artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: fast-velocity-minify.zip
         path: ${{ github.workspace }}/fast-velocity-minify.zip
