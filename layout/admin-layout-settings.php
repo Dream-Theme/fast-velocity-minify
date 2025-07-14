@@ -2,7 +2,7 @@
 <div class="fvm-wrapper">
 
 <form method="post" id="fvm-save-changes">
-			
+
 <?php
 	# nounce
 	wp_nonce_field('fvm_settings_nonce', 'fvm_settings_nonce');
@@ -248,9 +248,9 @@
 <th scope="row"><?php _e( 'Render Blocking JS files', 'fast-velocity-minify' ); ?></th>
 <td><fieldset>
 <label for="fvm_settings_merge_header"><span class="fvm-bold-green fvm-rowintro"><?php _e( 'This will render block all JS files matching the paths below', 'fast-velocity-minify' ); ?></span></label>
-<p><textarea name="fvm_settings[js][merge_header]" rows="7" cols="50" id="fvm_settings_js_merge_header" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?> 
-/jquery-migrate.js 
-/jquery.js 
+<p><textarea name="fvm_settings[js][merge_header]" rows="7" cols="50" id="fvm_settings_js_merge_header" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?>
+/jquery-migrate.js
+/jquery.js
 /jquery.min.js"><?php echo fvm_get_settings_value($fvm_settings, 'js', 'merge_header'); ?></textarea></p>
 <p class="description">[ <?php _e( 'Will match using <code>PHP stripos</code> against the script <code>src attribute</code>', 'fast-velocity-minify' ); ?> ]</p>
 </fieldset></td>
@@ -260,9 +260,9 @@
 <th scope="row"><?php _e( 'Defer JS Files', 'fast-velocity-minify' ); ?></th>
 <td><fieldset>
 <label for="fvm_settings_merge_defer"><span class="fvm-bold-green fvm-rowintro"><?php _e( 'This will defer all JS files matching the paths below', 'fast-velocity-minify' ); ?></span></label>
-<p><textarea name="fvm_settings[js][merge_defer]" rows="7" cols="50" id="fvm_settings_js_merge_defer" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?> 
-/wp-admin/ 
-/wp-includes/ 
+<p><textarea name="fvm_settings[js][merge_defer]" rows="7" cols="50" id="fvm_settings_js_merge_defer" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?>
+/wp-admin/
+/wp-includes/
 /wp-content/"><?php echo fvm_get_settings_value($fvm_settings, 'js', 'merge_defer'); ?></textarea></p>
 <p class="description">[ <?php _e( 'Will match using <code>PHP stripos</code> against the script <code>src attribute', 'fast-velocity-minify' ); ?></code> ]</p>
 </fieldset></td>
@@ -272,7 +272,7 @@
 <th scope="row"><?php _e( 'Defer Inline JavaScript', 'fast-velocity-minify' ); ?></th>
 <td><fieldset>
 <label for="fvm_settings_defer_dependencies"><span class="fvm-bold-green fvm-rowintro"><?php _e( 'Preserve the order of scripts execution when deferring JS files dependencies', 'fast-velocity-minify' ); ?></span></label>
-<p><textarea name="fvm_settings[js][defer_dependencies]" rows="7" cols="50" id="fvm_settings_js_defer_dependencies" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?> 
+<p><textarea name="fvm_settings[js][defer_dependencies]" rows="7" cols="50" id="fvm_settings_js_defer_dependencies" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?>
 wp.i18n
 wp.apiFetch.use
 window.lodash
@@ -287,8 +287,8 @@ wp.url"><?php echo fvm_get_settings_value($fvm_settings, 'js', 'defer_dependenci
 <th scope="row"><?php _e( 'Delay third party scripts until user interaction', 'fast-velocity-minify' ); ?></th>
 <td><fieldset>
 <label for="fvm_settings_js_thirdparty"><span class="fvm-bold-green fvm-rowintro"><?php _e( 'Delay JS files or inline scripts until user interaction', 'fast-velocity-minify' ); ?></span></label>
-<p><textarea name="fvm_settings[js][thirdparty]" rows="7" cols="50" id="fvm_settings_js_thirdparty" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?> 
-function(w,d,s,l,i) 
+<p><textarea name="fvm_settings[js][thirdparty]" rows="7" cols="50" id="fvm_settings_js_thirdparty" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?>
+function(w,d,s,l,i)
 function(f,b,e,v,n,t,s)
 function(h,o,t,j,a,r)
 www.googletagmanager.com/gtm.js"><?php echo fvm_get_settings_value($fvm_settings, 'js', 'thirdparty'); ?></textarea></p>
@@ -301,7 +301,7 @@ www.googletagmanager.com/gtm.js"><?php echo fvm_get_settings_value($fvm_settings
 <th scope="row"><?php _e( 'Remove JavaScript Scripts', 'fast-velocity-minify' ); ?></th>
 <td><fieldset>
 <label for="fvm_settings_js_remove"><span class="fvm-bold-green fvm-rowintro"><?php _e( 'Remove the following JS files or Inline Scripts', 'fast-velocity-minify' ); ?></span></label>
-<p><textarea name="fvm_settings[js][remove]" rows="7" cols="50" id="fvm_settings_js_remove" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?> 
+<p><textarea name="fvm_settings[js][remove]" rows="7" cols="50" id="fvm_settings_js_remove" class="large-text code" placeholder="<?php _e( '--- example ---', 'fast-velocity-minify' ); ?>
 /some/duplicate/file.js"><?php echo fvm_get_settings_value($fvm_settings, 'js', 'remove'); ?></textarea></p>
 <p class="description">[ <?php _e( 'This will allow you to remove unwanted script tags from the frontend', 'fast-velocity-minify' ); ?> ]</p>
 <p class="description">[ <?php _e( 'Will match using <code>PHP stripos</code> against the script <code>outerHTML</code>', 'fast-velocity-minify' ); ?> ]</p>
@@ -400,9 +400,12 @@ echo fvm_get_user_roles_checkboxes();
 
 
 <input type="hidden" name="fvm_action" value="save_settings" />
-<p class="submit"><input type="submit" class="button button-primary" value="<?php _e( 'Save Changes', 'fast-velocity-minify' ); ?>"></p>
+<p class="submit">
+	<input type="submit" class="button button-primary" value="<?php _e( 'Save Changes', 'fast-velocity-minify' ); ?>">
+	<button type="submit" class="button button-secondary button-link-delete alignright" name="fvm_reset_settings" value="yes"><?php _e( 'Reset Settings', 'fast-velocity-minify' ); ?></button>
+</p>
 
 </form>
 </div>
-<?php 
+<?php
 }
