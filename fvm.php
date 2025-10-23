@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fast Velocity Minify
  * Plugin URI: https://fastvelocity.com
- * Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
+ * Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations.
  * Version: 3.5.2
  * Author: Raul Peixoto
  * Author URI: https://fastvelocity.com
@@ -14,15 +14,15 @@
 */
 
 
-# Exit if accessed directly				
-if (!defined('ABSPATH')){ exit(); }	
+# Exit if accessed directly
+if (!defined('ABSPATH')){ exit(); }
 
 # Invalidate OPCache for current file on WP 5.5+
 if(function_exists('wp_opcache_invalidate') && stripos(__FILE__, '/fvm.php') !== false) {
 	wp_opcache_invalidate(__FILE__, true);
 }
 
-if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.4.1');}
+if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.5.2');}
 
 # info, variables, paths
 if (!defined('FVM_PDIR')) { define('FVM_PDIR', __DIR__ . '/'); }  # /home/path/plugins/pluginname/
@@ -52,7 +52,7 @@ $fvm_urls = array('wp_site_url'=>trailingslashit(site_url()), 'wp_domain'=>fvm_g
 
 # only on backend
 if(is_admin()) {
-	
+
 	# admin functionality
 	require_once($fvm_var_inc_dir . 'admin.php');
 	require_once($fvm_var_inc_dir . 'serverinfo.php');
@@ -60,7 +60,7 @@ if(is_admin()) {
 	# both backend and frontend, as long as user can manage options
 	add_action('admin_bar_menu', 'fvm_admintoolbar', 100);
 	add_action('init', 'fvm_process_cache_purge_request');
-		
+
 	# do admin stuff, as long as user can manage options
 	add_action('admin_init', 'fvm_save_settings');
 	add_action('admin_init', 'fvm_check_minimum_requirements');
@@ -70,7 +70,7 @@ if(is_admin()) {
 	add_action('admin_menu', 'fvm_add_admin_menu');
 	add_action('admin_notices', 'fvm_show_admin_notice_from_transient');
 	add_action('wp_ajax_fvm_get_logs', 'fvm_get_logs_callback'); # Note: JS must pass nonce as 'fvm_logs_nonce'
-		
+
 	# purge everything
 	add_action('switch_theme', 'fvm_purge_all');
 	add_action('customize_save', 'fvm_purge_all');
@@ -84,17 +84,17 @@ if(is_admin()) {
 
 # frontend only, any user permissions
 if(!is_admin()) {
-	
+
 	# frontend functionality
 	require_once($fvm_var_inc_dir . 'frontend.php');
-	
+
 	# both back and front, as long as the option is enabled
 	add_action('init', 'fvm_disable_emojis');
-	
+
 	# both backend and frontend, as long as user can manage options
 	add_action('admin_bar_menu', 'fvm_admintoolbar', 100);
 	add_action('init', 'fvm_process_cache_purge_request');
-	
+
 	# load after all plugins
 	add_action( 'plugins_loaded', 'fvm_loader' );
 	function fvm_loader() {
@@ -114,6 +114,6 @@ if(!is_admin()) {
 			add_action(constant("FVM_HOOK_INTO"), 'fvm_start_buffer', 999999);
 		}
 	}
-		
+
 }
 
