@@ -2430,17 +2430,15 @@ function fvm_maybe_download($url) {
 		return array('error' => 'Only HTTP and HTTPS protocols are allowed');
 	}
 
-	# Block internal/private IP ranges to prevent SSRF
-	$ip = gethostbyname($parsed['host']);
-	if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
-		return array('error' => 'Access to private/internal IPs is not allowed');
+	# get domain early to determine if this is a local or external resource
+	global $fvm_urls;
+	$is_local_domain = false;
+	if (isset($fvm_urls['wp_domain']) && !empty($fvm_urls['wp_domain'])) {
+		$is_local_domain = (stripos($url, $fvm_urls['wp_domain']) !== false);
 	}
 
-	# get domain
-	global $fvm_urls;
-
-	# check if we can open the file locally first
-	if (stripos($url, $fvm_urls['wp_domain']) !== false && defined('ABSPATH') && !empty('ABSPATH')) {
+	# For local WordPress domain URLs, try to read from disk first (no SSRF risk)
+	if ($is_local_domain && defined('ABSPATH') && !empty('ABSPATH')) {
 
 		# file path + windows compatibility
 		$f =  strtok(str_replace('/', DIRECTORY_SEPARATOR, str_replace(rtrim($fvm_urls['wp_site_url'], '/'), rtrim(ABSPATH, '/'), $url)), '?');
