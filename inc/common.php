@@ -645,8 +645,6 @@ function fvm_purge_static_files() {
 			# instant purge
 			if(isset($fvm_settings['cache']['min_instant_purge']) && $fvm_settings['cache']['min_instant_purge'] == true) {
 				fvm_rrmdir($ch_info['ch_dir']);
-			} else {
-				fvm_rrmdir($ch_info['ch_dir'], $tver);	# 7 days
 			}
 
 		}
