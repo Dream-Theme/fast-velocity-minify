@@ -1,0 +1,38 @@
+name: merge-and-build-improved
+run-name: Merge and Build improved-long-term-page-caching
+permissions:
+  contents: write
+on:
+  workflow_run:
+    workflows: ["publish-plugin"]
+    types:
+      - completed
+  workflow_dispatch:
+jobs:
+  merge-and-build:
+    name: Merge modified into improved-long-term-page-caching and build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Checkout improved-long-term-page-caching
+      uses: actions/checkout@v4
+      with:
+        ref: improved-long-term-page-caching
+        fetch-depth: 0
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Merge modified branch
+      run: |
+        git fetch origin modified
+        git merge origin/modified --no-edit
+        git push origin improved-long-term-page-caching
+    - name: Build
+      shell: bash
+      run: git archive --format=zip --prefix="fast-velocity-minify/" HEAD > ${{ github.workspace }}/fast-velocity-minify.zip
+    - name: Upload zip artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: fast-velocity-minify-improved.zip
+        path: ${{ github.workspace }}/fast-velocity-minify.zip
