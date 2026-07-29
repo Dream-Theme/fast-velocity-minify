@@ -447,7 +447,7 @@ register_deactivation_hook($fvm_var_file, 'fvm_plugin_deactivate');
 function fvm_plugin_deactivate() {
 
 	# process cache settings
-	fvm_purge_static_files();
+	fvm_purge_all();
 
 	global $wpdb;
 	if(is_null($wpdb)) { return false; }
@@ -464,7 +464,7 @@ register_uninstall_hook($fvm_var_file, 'fvm_plugin_uninstall');
 function fvm_plugin_uninstall() {
 
 	# process cache settings
-	fvm_purge_static_files();
+	fvm_purge_all();
 
 	global $wpdb;
 	if(is_null($wpdb)) { return false; }
