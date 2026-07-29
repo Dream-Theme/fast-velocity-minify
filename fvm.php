@@ -3,7 +3,7 @@
  * Plugin Name: Fast Velocity Minify
  * Plugin URI: https://fastvelocity.com
  * Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations.
- * Version: 3.5.4
+ * Version: 3.5.7
  * Author: Raul Peixoto
  * Author URI: https://fastvelocity.com
  * Text Domain: fast-velocity-minify
@@ -22,7 +22,7 @@ if(function_exists('wp_opcache_invalidate') && stripos(__FILE__, '/fvm.php') !==
 	wp_opcache_invalidate(__FILE__, true);
 }
 
-if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.5.4');}
+if (!defined('FVM_VERSION')) { define('FVM_VERSION', '3.5.7');}
 
 # info, variables, paths
 if (!defined('FVM_PDIR')) { define('FVM_PDIR', __DIR__ . '/'); }  # /home/path/plugins/pluginname/

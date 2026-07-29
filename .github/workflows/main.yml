@@ -24,11 +24,22 @@ jobs:
       with:
         name: fast-velocity-minify.zip
         path: ${{ github.workspace }}/fast-velocity-minify.zip
-    - name: Create GitHub release
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: ${{ github.ref_name }}
-        files: fast-velocity-minify.zip
-        body: Release ${{ github.ref_name }}
+    - name: Resolve release tag
+      id: release_tag
+      shell: bash
+      run: |
+        if [[ "${{ github.ref_type }}" == "tag" ]]; then
+          TAG="${{ github.ref_name }}"
+        else
+          TAG="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+        fi
+        echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+    - name: Upload zip to release via gh (overwrite)
+      if: ${{ steps.release_tag.outputs.tag != '' }}
+      shell: bash
+      run: |
+        TAG="${{ steps.release_tag.outputs.tag }}"
+        gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --verify-tag --notes "Release $TAG"
+        gh release upload "$TAG" "${{ github.workspace }}/fast-velocity-minify.zip" --clobber
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ github.token }}
